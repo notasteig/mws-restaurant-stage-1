@@ -12,7 +12,7 @@
   <title>Restaurant Info</title>
 </head>
 
-<body class="inside">
+<body class="restaurant">
   <!-- Beginning header -->
   <header>
     <!-- Beginning nav -->
@@ -31,21 +31,24 @@
   <!-- Beginning main -->
   <main id="maincontent">
     <!-- Beginning map -->
-    <section id="map-container">
-      <div id="map" aria-role="application" aria-label="map"></div>
-    </section>
     <!-- End map -->
     <!-- Beginning restaurant -->
     <section id="restaurant-container">
+      <img id="restaurant-img">
       <div class="restaurant-info">
         <h1 id="restaurant-name"></h1>
         <p id="restaurant-cuisine"></p>
         <p id="restaurant-address"></p>
       </div>
-
-      <img id="restaurant-img">
-      
-      <table id="restaurant-hours"></table>
+      <section id="map-container">
+        <div id="map" aria-role="application" aria-label="map"></div>
+      </section>
+      <table id="restaurant-hours">
+        <tr>
+          <th>Days</th>
+          <th>Hours</th>
+        </tr>
+      </table>
     </section>
     <!-- end restaurant -->
     <!-- Beginning reviews -->
