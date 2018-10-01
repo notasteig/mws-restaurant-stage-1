@@ -1,4 +1,3 @@
-console.log('here');
 let restaurants,
   neighborhoods,
   cuisines
@@ -162,7 +161,7 @@ createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant) + '.jpg';
-  image.alt = `Restaurant: ${restaurant.name}`
+  image.alt = `Restaurant: ${restaurant.name}`;
   li.append(image);
 
   const name = document.createElement('h1');
