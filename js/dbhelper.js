@@ -1,6 +1,7 @@
 /**
  * Common database helper functions.
  */
+
 class DBHelper {
 
   /**
@@ -12,6 +13,44 @@ class DBHelper {
     return `http://localhost:${port}/restaurants`;
   }
 
+  static get DATABASE_NAME() {
+    return 'mws-restaurants';
+  }
+
+  static saveRestaurants(restaurants) {
+
+    if (!navigator.serviceWorker) {
+      return Promise.resolve();
+    }
+
+    if (!restaurants) {
+      return false;
+    }
+
+    var store, dbPromise;
+
+    dbPromise = idb.open(DBHelper.DATABASE_NAME, 4, function(upgradeDb) {
+      store = upgradeDb.createObjectStore('restaurants', {
+        autoIncrement: true,
+      });
+
+    }).then(function (db){
+      
+      var tx, store;
+
+      tx = db.transaction('restaurants', 'readwrite');
+      store = tx.objectStore('restaurants');
+
+      for(var i = 0; i<restaurants.length; i++) {
+        if(restaurants[i]) {
+          store.add(restaurants);
+        }
+      }
+      
+    });
+
+  }
+
   /**
    * Fetch all restaurants.
    */
@@ -21,6 +60,7 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const restaurants = JSON.parse(xhr.responseText);
+        DBHelper.saveRestaurants(restaurants);
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -165,16 +205,10 @@ class DBHelper {
       marker.addTo(newMap);
     return marker;
   } 
-  /* static mapMarkerForRestaurant(restaurant, map) {
-    const marker = new google.maps.Marker({
-      position: restaurant.latlng,
-      title: restaurant.name,
-      url: DBHelper.urlForRestaurant(restaurant),
-      map: map,
-      animation: google.maps.Animation.DROP}
-    );
-    return marker;
-  } */
 
+  /**
+   * Map marker for a restaurant.
+   */
+   
 }
 
