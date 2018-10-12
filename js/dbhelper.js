@@ -29,7 +29,7 @@ class DBHelper {
 
     var store, dbPromise;
 
-    dbPromise = idb.open(DBHelper.DATABASE_NAME, 4, function(upgradeDb) {
+    dbPromise = idb.open(DBHelper.DATABASE_NAME, 1, function(upgradeDb) {
       store = upgradeDb.createObjectStore('restaurants', {
         autoIncrement: true,
       });
@@ -43,7 +43,7 @@ class DBHelper {
 
       for(var i = 0; i<restaurants.length; i++) {
         if(restaurants[i]) {
-          store.add(restaurants);
+          store.add(restaurants[i]);
         }
       }
       
