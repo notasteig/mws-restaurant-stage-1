@@ -31,7 +31,7 @@ class DBHelper {
 
     dbPromise = idb.open(DBHelper.DATABASE_NAME, 1, function(upgradeDb) {
       store = upgradeDb.createObjectStore('restaurants', {
-        autoIncrement: true,
+        keyPath: 'id',
       });
 
     }).then(function (db){
